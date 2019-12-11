@@ -1,0 +1,33 @@
+<resources>
+    <string name="download">download</string>
+    <string name="create_new_task">Create New Task</string>
+
+    <string name="work_done">Workdone Entry</string>
+    <string name="gantt_chart">Gantt Chart</string>
+    <string name="finished_date">Finished Date</string>
+    <string name="duration">Duration</string>
+    <string name="volume_of_works">Volume of Works</string>
+    <string name="volume_of_works_done">Volume of Workdone</string>
+    <string name="task_name">Task Name</string>
+    <string name="unit_rate">Unit Rate</string>
+    <string name="unit">Unit</string>
+    <string name="detail">Detail</string>
+    <string name="edit">Edit</string>
+    <string name="select_finished_date">Select Finished Date</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="workdone_entry_form">Workdone Entry Form</string>
+    <string name="select_task">Select Task</string>
+    <string name="work_done_date">Wokrdone Date</string>
+    <string name="select_work_done_date">Select Workdone Date</string>
+    <string name="date">Date</string>
+    <string name="bar_chart">Bar Chart</string>
+    <string name="workdone_vs_time">Workdone VS Time</string>
+    <string name="daily_work_done_chart">Daily Workdone Chart</string>
+    <string name="start_date">Start Date</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="browse">Browse</string>
+    <string name="update">Update</string>
+    <string name="select_date_of_birth">Select Date of Birth</string>
+    <string name="select_start_date">Select Finished Date</string>
+</resources>

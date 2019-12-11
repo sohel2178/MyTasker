@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:background="@color/colorPrimary"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="@dimen/small_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/small_padding">
+
+                <TextView
+                    android:id="@+id/to_account"
+                    style="@style/TaskTitle"
+                    android:layout_marginTop="@dimen/small_padding"
+                    android:padding="@dimen/small_padding"
+                    android:text="@string/select_task"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/task"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_padding"
+                    android:background="@drawable/bg_spinner"
+                    android:dropDownWidth="wrap_content"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:id="@+id/ti_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/work_done_date"
+                        android:inputType="date"
+                        android:paddingStart="@dimen/default_margin"
+                        android:focusable="false"
+                        android:fontFamily="@font/arima_madurai_medium"
+                        android:theme="@style/TIStyle" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/small_padding"
+                    android:id="@+id/ti_vol_of_work_done"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/vol_of_work_done"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/volume_of_works_done"
+                        android:fontFamily="@font/arima_madurai_medium"
+                        android:inputType="numberDecimal"
+                        android:paddingStart="@dimen/default_margin"
+                        android:theme="@style/TIStyle" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select Workdone Photo"
+                    android:fontFamily="@font/arima_madurai_medium"
+                    android:padding="@dimen/small_padding"
+                    android:textSize="@dimen/large_text_size"
+                    android:gravity="center_horizontal"/>
+
+                <ImageView
+                    android:layout_width="135dp"
+                    android:layout_height="240dp"
+                    android:id="@+id/image"
+                    android:scaleType="fitXY"
+                    android:background="@android:drawable/picture_frame"
+                    android:layout_gravity="center_horizontal" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:text="@string/browse"
+                    android:id="@+id/browse"/>
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:text="@string/save"
+                    android:id="@+id/save"/>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </ScrollView>
+
+
+
+</LinearLayout>
