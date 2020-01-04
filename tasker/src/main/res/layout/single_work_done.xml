@@ -1,64 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/small_padding"
     android:layout_marginBottom="@dimen/small_padding">
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="500px"
-        android:layout_height="750px" />
+        android:layout_width="@dimen/block_height"
+        android:layout_height="@dimen/block_height" />
 
-    <View
-        android:layout_width="500px"
-        android:layout_height="750px"
-        android:background="#66cccccc" />
+    <LinearLayout
+        android:layout_width="@dimen/block_height"
+        android:layout_height="@dimen/block_height"
+        android:orientation="vertical"
+        android:background="@color/statusColor">
 
-    <RelativeLayout
-        android:layout_width="500px"
-        android:layout_height="750px">
-
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="#99ff8800"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:text="01"
+            android:id="@+id/day"
+            android:gravity="center"
+            android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/work_done"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/large_text_size"
-                android:padding="@dimen/small_padding"
-                android:gravity="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:text="Jun-2020"
+            android:id="@+id/month_year"
+            android:gravity="center"
+            android:textStyle="bold"/>
 
-            <!--<TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:text="On"/>
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="12sp"
-                android:gravity="center"/>-->
-
-
-
-        </LinearLayout>
+    <TextView
+        android:id="@+id/work_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/large_text_size"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:gravity="end"/>
 
 
-    </RelativeLayout>
-
-
-</RelativeLayout>
+</LinearLayout>
 
