@@ -1,16 +1,21 @@
 package com.forbitbd.tasker.ui;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.viewpager.widget.ViewPager;
 
 
+import com.forbitbd.androidutils.BuildConfig;
 import com.forbitbd.androidutils.models.Project;
 import com.forbitbd.androidutils.utils.Constant;
 import com.forbitbd.androidutils.utils.PrebaseActivity;
@@ -27,6 +32,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.ramotion.foldingcell.FoldingCell;
 
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -366,5 +372,34 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
 
     public List<Task> getTaskList(){
         return this.taskList;
+    }
+
+
+    @Override
+    public void openFile(String path) {
+        //super.openFile(path);
+
+        File file = new File(path);
+
+        Intent target = new Intent(Intent.ACTION_VIEW);
+        target.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        Uri uri = FileProvider.getUriForFile(this,
+                getPackageName()+".fileprovider",file);
+
+
+
+        target.setDataAndType(uri,"application/vnd.ms-excel");
+
+        Intent intent = Intent.createChooser(target, "Open File");
+        try {
+            PackageManager pm = getPackageManager();
+            if (intent.resolveActivity(pm) != null) {
+                startActivity(intent);
+            }
+        } catch (ActivityNotFoundException e) {
+            // Instruct the user to install a PDF reader here, or something
+            showToast("Please Download a Excel Reader");
+        }
     }
 }

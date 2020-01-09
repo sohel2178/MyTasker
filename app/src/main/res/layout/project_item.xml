@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:visibility="visible"
+    android:layout_marginBottom="@dimen/small_padding">
+
+    <TextView
+        android:layout_width="@dimen/block_height"
+        android:layout_height="@dimen/block_height"
+        android:id="@+id/indicator"
+        android:text="E"
+        android:gravity="center"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/block_height"
+        android:layout_marginStart="@dimen/very_small_padding">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/small_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Project Name"
+                android:id="@+id/name"
+                android:textSize="@dimen/large_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/created_date"
+                android:textSize="@dimen/small_text_size"
+                android:textStyle="italic"
+                android:text="5 Days Remaining"/>
+
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</LinearLayout>
+
+
+
+
+
+
+

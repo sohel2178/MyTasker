@@ -6,11 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-   <com.google.android.material.button.MaterialButton
+
+   <androidx.appcompat.widget.Toolbar
+       android:id="@+id/toolbar"
+       android:layout_width="match_parent"
+       android:layout_height="?android:attr/actionBarSize"
+       app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+       android:background="@color/colorPrimary"/>
+
+
+
+   <androidx.recyclerview.widget.RecyclerView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/toolbar"
+      android:id="@+id/recycler_view"/>
+
+
+   <com.google.android.material.floatingactionbutton.FloatingActionButton
+       android:id="@+id/fab_add"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:layout_centerInParent="true"
-       android:id="@+id/clickMe"
-       android:text="Click Me"/>
+       android:layout_margin="@dimen/large_padding"
+       app:elevation="@dimen/medium_padding"
+       app:backgroundTint="@color/colorAccent"
+       app:fabSize="normal"
+       android:layout_alignParentEnd="true"
+       android:layout_alignParentBottom="true"
+
+       />
 
 </RelativeLayout>

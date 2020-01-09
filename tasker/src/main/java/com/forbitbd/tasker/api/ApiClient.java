@@ -1,5 +1,6 @@
 package com.forbitbd.tasker.api;
 
+import com.forbitbd.androidutils.models.Project;
 import com.forbitbd.tasker.models.Task;
 import com.forbitbd.tasker.models.WorkDone;
 
@@ -56,4 +57,19 @@ public interface ApiClient {
 
     @GET("/api/projects/{project_id}/task_download")
     Call<ResponseBody> downloadTaskFile(@Path("project_id") String projectId);
+
+
+
+    // Project
+    @POST("/api/projects")
+    Call<Project> createProject(@Body Project project);
+
+    @PUT("/api/projects/{project_id}")
+    Call<Project> updateProject (@Path("project_id") String projectId, @Body Project project);
+
+    @GET("/api/projects/{user_id}")
+    Call<List<Project>> getUserProjects(@Path("user_id") String user_id);
+
+    @DELETE("/api/projects/{project_id}")
+    Call<Project> deleteProject(@Path("project_id") String projectId);
 }
