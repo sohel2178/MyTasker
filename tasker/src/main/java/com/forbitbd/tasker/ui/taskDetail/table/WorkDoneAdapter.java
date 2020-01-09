@@ -80,14 +80,17 @@ public class WorkDoneAdapter extends RecyclerView.Adapter<WorkDoneAdapter.WorkDo
     }
 
     public class WorkDoneHolder extends RecyclerView.ViewHolder{
-        TextView tvWorkDone;
+        TextView tvWorkDone, tvday, tvmonth_year;
 
         ImageView imageView;
 
         public WorkDoneHolder(View itemView) {
             super(itemView);
             tvWorkDone = itemView.findViewById(R.id.work_done);
+            tvday = itemView.findViewById(R.id.day);
+            tvmonth_year = itemView.findViewById(R.id.month_year);
             imageView = itemView.findViewById(R.id.image);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,7 +103,16 @@ public class WorkDoneAdapter extends RecyclerView.Adapter<WorkDoneAdapter.WorkDo
 
         public void bind(WorkDone dailyWorkdone){
             Log.d("HHHHHHH",dailyWorkdone.getAmount()+"");
-            tvWorkDone.setText(dailyWorkdone.getAmount()+" "+unit+" On "+ MyUtil.getStringDate(dailyWorkdone.getDate()));
+            tvWorkDone.setText(dailyWorkdone.getAmount()+" "+unit);
+            String date =  MyUtil.getStringDate(dailyWorkdone.getDate());
+            String[] dateArr = date.split("-");
+            String day = dateArr[0];
+            String monthyear = dateArr[1]+"-"+dateArr[2];
+
+            tvday.setText(day);
+            tvmonth_year.setText(monthyear);
+
+
 
             if(dailyWorkdone.getImage() != null){
                 Picasso.with(fragment.getContext())

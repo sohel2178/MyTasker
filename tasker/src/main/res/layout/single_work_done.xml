@@ -7,7 +7,8 @@
     <ImageView
         android:id="@+id/image"
         android:layout_width="@dimen/block_height"
-        android:layout_height="@dimen/block_height" />
+        android:layout_height="@dimen/block_height"
+        android:scaleType="fitXY" />
 
     <LinearLayout
         android:layout_width="@dimen/block_height"
@@ -33,20 +34,41 @@
             android:textColor="@android:color/white"
             android:text="Jun-2020"
             android:id="@+id/month_year"
+            android:textSize="12sp"
             android:gravity="center"
             android:textStyle="bold"/>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/work_done"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/large_text_size"
-        android:layout_gravity="center_vertical"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:gravity="end"/>
+        android:layout_height="@dimen/block_height">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/block_height"
+            android:layout_alignParentEnd="true"
+            >
+
+            <TextView
+                android:id="@+id/work_done"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/large_text_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:gravity="end"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+
+
+
+
 
 
 </LinearLayout>
