@@ -10,7 +10,11 @@
         <activity android:name=".ui.taskEdit.TaskEditActivity"/>
         <activity android:name=".ui.taskDetail.TaskDetailActivity"/>
         <activity android:name=".ui.addWorkdone.AddWorkdoneActivity"/>
-        <activity android:name=".ui.gantt.GanttActivity"/>
+        <activity android:name=".ui.gantt.GanttActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape"/>
+
+
 
 
         <provider
