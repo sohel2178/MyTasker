@@ -52,6 +52,7 @@ public class WorkDoneTableFragment extends BaseDetailFragment implements WorkDon
 
     private void initView(View view) {
         RecyclerView rvWorkdone = view.findViewById(R.id.rv_workdone);
+
         rvWorkdone.setAdapter(adapter);
         mPresenter.processData(getWorkdoneList());
     }
