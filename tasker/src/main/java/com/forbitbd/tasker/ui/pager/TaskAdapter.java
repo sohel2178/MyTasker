@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.androidutils.utils.MyUtil;
 import com.forbitbd.tasker.R;
-import com.forbitbd.tasker.models.Task;
 import com.google.android.material.button.MaterialButton;
 import com.ramotion.foldingcell.FoldingCell;
 

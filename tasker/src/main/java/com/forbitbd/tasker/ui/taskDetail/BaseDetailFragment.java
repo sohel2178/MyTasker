@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
-import com.forbitbd.tasker.models.Task;
+import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.tasker.models.WorkDone;
 
 import java.util.List;

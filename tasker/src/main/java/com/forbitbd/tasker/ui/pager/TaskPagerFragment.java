@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.forbitbd.androidutils.dialog.delete.DeleteDialog;
 import com.forbitbd.androidutils.dialog.delete.DialogClickListener;
 import com.forbitbd.androidutils.models.Project;
+import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.androidutils.utils.Constant;
 import com.forbitbd.tasker.R;
-import com.forbitbd.tasker.models.Task;
 import com.forbitbd.tasker.ui.TaskActivity;
 import com.forbitbd.tasker.ui.taskDetail.TaskDetailActivity;
 

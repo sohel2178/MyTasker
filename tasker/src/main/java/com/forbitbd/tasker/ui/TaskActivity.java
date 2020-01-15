@@ -15,13 +15,12 @@ import androidx.core.content.FileProvider;
 import androidx.viewpager.widget.ViewPager;
 
 
-import com.forbitbd.androidutils.BuildConfig;
 import com.forbitbd.androidutils.models.Project;
+import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.androidutils.utils.Constant;
 import com.forbitbd.androidutils.utils.PrebaseActivity;
 import com.forbitbd.androidutils.utils.ViewPagerAdapter;
 import com.forbitbd.tasker.R;
-import com.forbitbd.tasker.models.Task;
 import com.forbitbd.tasker.ui.addWorkdone.AddWorkdoneActivity;
 import com.forbitbd.tasker.ui.gantt.GanttActivity;
 import com.forbitbd.tasker.ui.pager.TaskPagerFragment;

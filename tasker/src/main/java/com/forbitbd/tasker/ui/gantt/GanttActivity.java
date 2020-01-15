@@ -16,9 +16,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.forbitbd.androidutils.models.Project;
+import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.androidutils.utils.Constant;
 import com.forbitbd.tasker.R;
-import com.forbitbd.tasker.models.Task;
 import com.google.gson.Gson;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.forbitbd.tasker.ui.taskEdit;
 
 
-import com.forbitbd.tasker.models.Task;
+import com.forbitbd.androidutils.models.Task;
 
 public interface TaskEditContract {
 

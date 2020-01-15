@@ -2,7 +2,7 @@ package com.forbitbd.tasker.ui.taskDetail;
 
 
 
-import com.forbitbd.tasker.models.Task;
+import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.tasker.models.WorkDone;
 
 import java.util.List;

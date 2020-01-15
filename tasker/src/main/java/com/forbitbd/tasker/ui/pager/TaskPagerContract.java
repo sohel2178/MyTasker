@@ -2,7 +2,7 @@ package com.forbitbd.tasker.ui.pager;
 
 
 
-import com.forbitbd.tasker.models.Task;
+import com.forbitbd.androidutils.models.Task;
 
 import java.util.List;
 

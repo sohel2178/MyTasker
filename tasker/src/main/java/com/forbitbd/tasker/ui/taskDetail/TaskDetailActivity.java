@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import androidx.viewpager.widget.ViewPager;
 
+import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.androidutils.utils.Constant;
 import com.forbitbd.androidutils.utils.PrebaseActivity;
 import com.forbitbd.androidutils.utils.ViewPagerAdapter;
 import com.forbitbd.tasker.R;
-import com.forbitbd.tasker.models.Task;
 import com.forbitbd.tasker.models.WorkDone;
 import com.forbitbd.tasker.ui.taskDetail.chart.WorkDoneChartFragment;
 import com.forbitbd.tasker.ui.taskDetail.progress.ProgressFragment;
