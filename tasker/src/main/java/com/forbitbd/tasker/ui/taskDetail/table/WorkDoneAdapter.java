@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.forbitbd.androidutils.utils.MyUtil;
 import com.forbitbd.tasker.R;
 import com.forbitbd.tasker.models.WorkDone;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class WorkDoneAdapter extends RecyclerView.Adapter<WorkDoneAdapter.WorkDo
     public class WorkDoneHolder extends RecyclerView.ViewHolder{
         TextView tvWorkDone, tvday, tvmonth_year;
 
-        ImageView imageView;
+        FloatingActionButton imageView;
 
         public WorkDoneHolder(View itemView) {
             super(itemView);
@@ -92,10 +93,16 @@ public class WorkDoneAdapter extends RecyclerView.Adapter<WorkDoneAdapter.WorkDo
             imageView = itemView.findViewById(R.id.image);
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    fragment.startZoomImageActivity(workDoneList.get(getAdapterPosition()));
+                    Log.d("JJJJJJJJJ",workDoneList.get(getAdapterPosition()).getImage()+"");
+                    if(workDoneList.get(getAdapterPosition()).getImage() !=null){
+                        fragment.startZoomImageActivity(workDoneList.get(getAdapterPosition()));
+                    }else {
+                        fragment.showToast("No Attachment Found !!!");
+                    }
+
                 }
             });
         }
@@ -114,11 +121,11 @@ public class WorkDoneAdapter extends RecyclerView.Adapter<WorkDoneAdapter.WorkDo
 
 
 
-            if(dailyWorkdone.getImage() != null){
+           /* if(dailyWorkdone.getImage() != null){
                 Picasso.with(fragment.getContext())
                         .load(dailyWorkdone.getImage())
                         .into(imageView);
-            }
+            }*/
         }
     }
 }

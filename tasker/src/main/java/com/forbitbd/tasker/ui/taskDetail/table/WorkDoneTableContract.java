@@ -15,6 +15,7 @@ public interface WorkDoneTableContract {
     interface View{
         void addItem(WorkDone dailyWorkdone);
         void clearAdpter();
+        void showToast(String msg);
 
         void startZoomImageActivity(WorkDone workDone);
     }

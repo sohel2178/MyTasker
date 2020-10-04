@@ -137,13 +137,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             tvName.setText(task.getName());
             tvNameTwo.setText(task.getName());
 
-            if(task.getRemainingDays()>0){
-                tvRemaining.setText(String.valueOf(task.getRemainingDays()).concat(" Days Remaining"));
-                tvRemainingTwo.setText(String.valueOf(task.getRemainingDays()).concat(" Days Remaining"));
+            if(task.getVolume_of_works()==task.getVolume_of_work_done()){
+                tvRemaining.setText("Completed");
+                tvRemainingTwo.setText("Completed");
             }else{
-                tvRemaining.setText("Expired");
-                tvRemainingTwo.setText("Expired");
+                if(task.getRemainingDays()>0){
+                    tvRemaining.setText(String.valueOf(task.getRemainingDays()).concat(" Days Remaining"));
+                    tvRemainingTwo.setText(String.valueOf(task.getRemainingDays()).concat(" Days Remaining"));
+                }else{
+                    tvRemaining.setText("Expired ".concat(String.valueOf(Math.abs(task.getRemainingDays()))).concat(" Days"));
+                    tvRemainingTwo.setText("Expired ".concat(String.valueOf(Math.abs(task.getRemainingDays()))).concat(" Days"));
+                }
             }
+
+
 
 
             tvStartDate.setText(MyUtil.getStringDate(task.getStart_date()));

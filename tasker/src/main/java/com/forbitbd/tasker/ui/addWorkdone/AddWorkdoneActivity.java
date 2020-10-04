@@ -143,10 +143,10 @@ public class AddWorkdoneActivity extends PrebaseActivity implements AddWorkdoneC
             return;
         }
 
-        if(ivImage.getDrawable()==null){
+        /*if(ivImage.getDrawable()==null){
             showToast("Browse to Select an Employee Image");
             return;
-        }
+        }*/
 
         mPresenter.saveWorkdone(workDone,bytes);
     }
