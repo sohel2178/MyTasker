@@ -1,8 +1,8 @@
 package com.forbitbd.myapplication;
 
+import com.forbitbd.androidutils.api.ServiceGenerator;
 import com.forbitbd.androidutils.models.Project;
 import com.forbitbd.tasker.api.ApiClient;
-import com.forbitbd.tasker.api.ServiceGenerator;
 
 import java.util.List;
 

@@ -16,7 +16,7 @@ public interface AddWorkdoneContract {
 
     interface View{
         void showToast(String message);
-        void showError(String message);
+        void showError(String message,int field);
         void clearPreError();
         void showProgressDialog();
         void hideProgressDialog();

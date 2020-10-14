@@ -31,7 +31,7 @@
                 android:orientation="vertical"
                 android:padding="@dimen/small_padding">
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/to_account"
                     style="@style/TaskTitle"
                     android:layout_marginTop="@dimen/small_padding"
@@ -45,11 +45,30 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/small_padding"
                     android:background="@drawable/bg_spinner"
-                    android:dropDownWidth="wrap_content"/>
+                    android:dropDownWidth="wrap_content"/>-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:id="@+id/ti_task">
+
+                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                        style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
+                        android:id="@+id/et_task"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/select_task"
+                        android:fontFamily="@font/arima_madurai_medium"
+                        android:inputType="text"/>
+
+
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_marginTop="@dimen/default_margin"
                     android:id="@+id/ti_date"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -69,6 +88,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_marginTop="@dimen/small_padding"
                     android:id="@+id/ti_vol_of_work_done"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

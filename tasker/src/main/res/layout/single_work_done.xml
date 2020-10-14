@@ -11,6 +11,21 @@
         android:layout_height="@dimen/block_height"
         android:scaleType="fitXY" />-->
 
+    <RelativeLayout
+        android:layout_width="@dimen/block_height"
+        android:layout_height="@dimen/block_height">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/image"
+            app:fabSize="mini"
+            android:src="@drawable/attach"
+            app:tint="@android:color/white"/>
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="@dimen/block_height"
         android:layout_height="@dimen/block_height"
@@ -41,20 +56,7 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="@dimen/block_height"
-        android:layout_height="@dimen/block_height">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:id="@+id/image"
-            app:fabSize="mini"
-            android:src="@drawable/attach"
-            android:tint="@android:color/white"/>
-
-    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

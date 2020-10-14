@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -57,6 +58,7 @@ public class MainActivity extends PrebaseActivity implements MainContract.View {
     @Override
     public void renderAdapter(List<Project> projectList) {
         for (Project x: projectList){
+            Log.d("HHHHH",x.get_id());
             adapter.addProject(x);
         }
     }

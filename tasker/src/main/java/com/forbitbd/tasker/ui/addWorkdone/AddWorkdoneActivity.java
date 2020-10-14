@@ -4,14 +4,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 
 import com.forbitbd.androidutils.dialog.DatePickerListener;
 import com.forbitbd.androidutils.dialog.MyDatePickerFragment;
@@ -37,8 +37,8 @@ public class AddWorkdoneActivity extends PrebaseActivity implements AddWorkdoneC
 
 
     private EditText etDate,etVolOfWorkDone;
-    private TextInputLayout tDate,tVolOfWorkDone;
-    private AppCompatSpinner spTasks;
+    private AppCompatAutoCompleteTextView etTask;
+    private TextInputLayout tDate,tVolOfWorkDone,tiTask;
 
     private ImageView ivImage;
 
@@ -52,6 +52,11 @@ public class AddWorkdoneActivity extends PrebaseActivity implements AddWorkdoneC
     private List<Task> taskList;
 
     private byte[] bytes;
+
+    private Task selectedTask;
+
+    ArrayAdapter<Task> taskAdapter;
+
 
 
     @Override
@@ -72,14 +77,26 @@ public class AddWorkdoneActivity extends PrebaseActivity implements AddWorkdoneC
         btn_save = findViewById(R.id.save);
         btn_browse = findViewById(R.id.browse);
         etDate = findViewById(R.id.et_date);
+        etTask = findViewById(R.id.et_task);
+        date = new Date();
+
+        etTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedTask =taskAdapter.getItem(i);
+                etTask.setText(selectedTask.getName());
+            }
+        });
 
         etVolOfWorkDone = findViewById(R.id.vol_of_work_done);
         tVolOfWorkDone = findViewById(R.id.ti_vol_of_work_done);
+        tiTask = findViewById(R.id.ti_task);
         ivImage = findViewById(R.id.image);
 
-        spTasks = findViewById(R.id.task);
-        ArrayAdapter<Task> taskAdapter = new ArrayAdapter<Task>(this,android.R.layout.simple_list_item_1,taskList);
-        spTasks.setAdapter(taskAdapter);
+        taskAdapter = new ArrayAdapter<Task>(this,android.R.layout.simple_list_item_1,taskList);
+        etTask.setAdapter(taskAdapter);
+
+        etDate.setText(MyUtil.getStringDate(date));
 
         etDate.setOnClickListener(this);
         btn_browse.setOnClickListener(this);
@@ -87,13 +104,26 @@ public class AddWorkdoneActivity extends PrebaseActivity implements AddWorkdoneC
     }
 
     @Override
-    public void showError(String message) {
-        tVolOfWorkDone.setError(message);
+    public void showError(String message,int field) {
+        switch (field){
+            case 1:
+                tiTask.setError(message);
+                etTask.requestFocus();
+                break;
+
+            case 2:
+                tVolOfWorkDone.setError(message);
+                etVolOfWorkDone.requestFocus();
+                break;
+
+
+        }
     }
 
     @Override
     public void clearPreError() {
         tVolOfWorkDone.setErrorEnabled(false);
+        tiTask.setErrorEnabled(false);
     }
 
     @Override
@@ -124,29 +154,24 @@ public class AddWorkdoneActivity extends PrebaseActivity implements AddWorkdoneC
 
         try {
             amount = Double.parseDouble(workDoneStr);
-            Log.d("HHHHHHH","Called");
         }catch (Exception e){
-            Log.d("HHHHHHH","Called in Errror");
         }
 
         workDone.setAmount(amount);
         workDone.setProject(project.get_id());
-        workDone.setTask(((Task) spTasks.getSelectedItem()).get_id());
+        //workDone.setTask(etTask.getText().toString().trim());
 
         if(date !=null){
             workDone.setDate(date);
         }
 
-        boolean valid = mPresenter.validate((Task) spTasks.getSelectedItem(),workDone);
+        boolean valid = mPresenter.validate(selectedTask,workDone);
 
         if(!valid){
             return;
+        }else{
+            workDone.setTask(selectedTask.get_id());
         }
-
-        /*if(ivImage.getDrawable()==null){
-            showToast("Browse to Select an Employee Image");
-            return;
-        }*/
 
         mPresenter.saveWorkdone(workDone,bytes);
     }
@@ -184,6 +209,7 @@ public class AddWorkdoneActivity extends PrebaseActivity implements AddWorkdoneC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {

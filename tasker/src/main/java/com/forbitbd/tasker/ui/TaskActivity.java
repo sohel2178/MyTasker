@@ -373,32 +373,4 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         return this.taskList;
     }
 
-
-    @Override
-    public void openFile(String path) {
-        //super.openFile(path);
-
-        File file = new File(path);
-
-        Intent target = new Intent(Intent.ACTION_VIEW);
-        target.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        Uri uri = FileProvider.getUriForFile(this,
-                getPackageName()+".fileprovider",file);
-
-
-
-        target.setDataAndType(uri,"application/vnd.ms-excel");
-
-        Intent intent = Intent.createChooser(target, "Open File");
-        try {
-            PackageManager pm = getPackageManager();
-            if (intent.resolveActivity(pm) != null) {
-                startActivity(intent);
-            }
-        } catch (ActivityNotFoundException e) {
-            // Instruct the user to install a PDF reader here, or something
-            showToast("Please Download a Excel Reader");
-        }
-    }
 }

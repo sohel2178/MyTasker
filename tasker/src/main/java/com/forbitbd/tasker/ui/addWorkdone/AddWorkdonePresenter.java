@@ -1,12 +1,11 @@
 package com.forbitbd.tasker.ui.addWorkdone;
 
 
-import android.util.Log;
 
+import com.forbitbd.androidutils.api.ServiceGenerator;
 import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.androidutils.utils.MyUtil;
 import com.forbitbd.tasker.api.ApiClient;
-import com.forbitbd.tasker.api.ServiceGenerator;
 import com.forbitbd.tasker.models.WorkDone;
 
 import java.util.HashMap;
@@ -30,12 +29,12 @@ public class AddWorkdonePresenter implements AddWorkdoneContract.Presenter {
     public boolean validate(Task task, WorkDone workdone) {
         mView.clearPreError();
         if(task==null){
-            mView.showToast("Please Select a Task");
+            mView.showError("Please Select Task From Dropdown",1);
             return false;
         }
 
         if(workdone.getAmount()==0){
-            mView.showError("Volume of Workdone should not Empty or 0 ");
+            mView.showError("Volume of Workdone should not Empty or 0 ",2);
             return false;
         }
 
@@ -45,9 +44,10 @@ public class AddWorkdonePresenter implements AddWorkdoneContract.Presenter {
         }
 
         if(task.getVolume_of_work_done()+workdone.getAmount()>task.getVolume_of_works()){
-            mView.showError("Volume of Workdone Exceed Volume of Works");
+            mView.showError("Volume of Workdone Exceed Volume of Works",2);
             return false;
         }
+
 
 
         return true;
@@ -96,7 +96,6 @@ public class AddWorkdonePresenter implements AddWorkdoneContract.Presenter {
                     @Override
                     public void onFailure(Call<Task> call, Throwable t) {
                         mView.hideProgressDialog();
-                        Log.d("HHHHHHH","Error "+t.getMessage());
                     }
                 });
 

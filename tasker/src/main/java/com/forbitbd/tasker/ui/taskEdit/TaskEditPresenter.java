@@ -2,9 +2,9 @@ package com.forbitbd.tasker.ui.taskEdit;
 
 
 
+import com.forbitbd.androidutils.api.ServiceGenerator;
 import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.tasker.api.ApiClient;
-import com.forbitbd.tasker.api.ServiceGenerator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
