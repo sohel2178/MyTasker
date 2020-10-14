@@ -38,6 +38,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/ti_task_name"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -56,6 +57,7 @@
                         android:id="@+id/ti_task_vol_of_work"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_below="@+id/ti_task_name">
 
                         <EditText
@@ -73,6 +75,7 @@
                         android:id="@+id/ti_unit_rate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_below="@+id/ti_task_vol_of_work">
 
                         <EditText
@@ -90,9 +93,11 @@
                         android:id="@+id/ti_unit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_below="@+id/ti_unit_rate">
 
                         <AutoCompleteTextView
+                            style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
                             android:id="@+id/unit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -107,6 +112,7 @@
                         android:id="@+id/ti_start_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_below="@+id/ti_unit">
 
                         <EditText
@@ -125,6 +131,7 @@
                         android:id="@+id/ti_finished_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_below="@+id/ti_start_date">
 
                         <EditText
