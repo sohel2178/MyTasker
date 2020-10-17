@@ -1,10 +1,8 @@
 package com.forbitbd.tasker.ui.taskDetail.table;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +11,6 @@ import com.forbitbd.androidutils.utils.MyUtil;
 import com.forbitbd.tasker.R;
 import com.forbitbd.tasker.models.WorkDone;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +93,6 @@ public class WorkDoneAdapter extends RecyclerView.Adapter<WorkDoneAdapter.WorkDo
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d("JJJJJJJJJ",workDoneList.get(getAdapterPosition()).getImage()+"");
                     if(workDoneList.get(getAdapterPosition()).getImage() !=null){
                         fragment.startZoomImageActivity(workDoneList.get(getAdapterPosition()));
                     }else {
@@ -109,7 +105,6 @@ public class WorkDoneAdapter extends RecyclerView.Adapter<WorkDoneAdapter.WorkDo
 
 
         public void bind(WorkDone dailyWorkdone){
-            Log.d("HHHHHHH",dailyWorkdone.getAmount()+"");
             tvWorkDone.setText(dailyWorkdone.getAmount()+" "+unit);
             String date =  MyUtil.getStringDate(dailyWorkdone.getDate());
             String[] dateArr = date.split("-");
@@ -119,13 +114,6 @@ public class WorkDoneAdapter extends RecyclerView.Adapter<WorkDoneAdapter.WorkDo
             tvday.setText(day);
             tvmonth_year.setText(monthyear);
 
-
-
-           /* if(dailyWorkdone.getImage() != null){
-                Picasso.with(fragment.getContext())
-                        .load(dailyWorkdone.getImage())
-                        .into(imageView);
-            }*/
         }
     }
 }

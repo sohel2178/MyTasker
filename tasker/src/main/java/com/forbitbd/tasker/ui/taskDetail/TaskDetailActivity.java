@@ -51,6 +51,8 @@ public class TaskDetailActivity extends PrebaseActivity implements TaskDetailCon
         setupToolbar(R.id.toolbar);
         getSupportActionBar().setTitle(mTask.getName());
 
+        setupBannerAd(R.id.adView);
+
         mPresenter.getAllWorkdone(mTask);
     }
 

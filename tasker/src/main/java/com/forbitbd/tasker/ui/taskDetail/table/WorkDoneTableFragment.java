@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -27,6 +28,8 @@ public class WorkDoneTableFragment extends BaseDetailFragment implements WorkDon
     private WorkDoneAdapter adapter;
 
     private WorkdoneTablePresenter mPresenter;
+
+    private TextView tvWorkDone;
 
 
 
@@ -53,6 +56,9 @@ public class WorkDoneTableFragment extends BaseDetailFragment implements WorkDon
 
     private void initView(View view) {
         RecyclerView rvWorkdone = view.findViewById(R.id.rv_workdone);
+
+        tvWorkDone = view.findViewById(R.id.work_done);
+        tvWorkDone.setText(String.valueOf(getTask().getVolume_of_work_done()).concat(" ").concat(getTask().getUnit()));
 
         rvWorkdone.setAdapter(adapter);
         mPresenter.processData(getWorkdoneList());

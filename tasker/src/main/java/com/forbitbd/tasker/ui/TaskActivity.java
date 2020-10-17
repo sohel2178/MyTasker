@@ -1,17 +1,13 @@
 package com.forbitbd.tasker.ui;
 
 import android.Manifest;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
 import androidx.viewpager.widget.ViewPager;
 
 
@@ -31,7 +27,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.ramotion.foldingcell.FoldingCell;
 
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +73,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
 
     private void initView() {
         setupToolbar(R.id.toolbar);
+        setupBannerAd(R.id.adView);
 
         getSupportActionBar().setTitle(project.getName());
 

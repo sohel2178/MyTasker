@@ -65,6 +65,8 @@ public class TaskEditActivity extends PrebaseActivity implements TaskEditContrac
         setupToolbar(R.id.toolbar);
         getSupportActionBar().setTitle(getString(R.string.edit_task));
 
+        setupBannerAd(R.id.adView);
+
 
         // Main View
         etName = findViewById(R.id.et_task_name);

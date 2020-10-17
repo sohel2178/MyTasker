@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -18,6 +19,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/adView"
         android:layout_margin="@dimen/default_margin">
 
         <androidx.cardview.widget.CardView
@@ -30,22 +33,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/small_padding">
-
-                <!--<TextView
-                    android:id="@+id/to_account"
-                    style="@style/TaskTitle"
-                    android:layout_marginTop="@dimen/small_padding"
-                    android:padding="@dimen/small_padding"
-                    android:text="@string/select_task"
-                    android:textSize="14sp" />
-
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/task"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/small_padding"
-                    android:background="@drawable/bg_spinner"
-                    android:dropDownWidth="wrap_content"/>-->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -145,6 +132,15 @@
 
     </ScrollView>
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit"/>
 
 
-</LinearLayout>
+
+</RelativeLayout>

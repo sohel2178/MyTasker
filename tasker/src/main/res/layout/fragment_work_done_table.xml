@@ -11,12 +11,33 @@
         android:layout_width="match_parent"
         android:layout_height="42dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Workdone"
-            android:gravity="center"
-            android:textSize="@dimen/large_text_size"/>
+            android:padding="@dimen/small_padding">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Workdone"
+
+               android:gravity="center_vertical"
+                android:textSize="@dimen/large_text_size"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Workdone"
+                android:id="@+id/work_done"
+                android:gravity="center_vertical|end"
+
+                android:textSize="@dimen/large_text_size"/>
+
+        </LinearLayout>
+
+
 
     </androidx.cardview.widget.CardView>
 

@@ -70,6 +70,8 @@ public class TaskAddActivity extends PrebaseActivity implements View.OnClickList
         setupToolbar(R.id.toolbar);
         getSupportActionBar().setTitle(getString(R.string.create_new_task));
 
+        setupBannerAd(R.id.adView);
+
 
         // Main View
         etName = findViewById(R.id.et_task_name);

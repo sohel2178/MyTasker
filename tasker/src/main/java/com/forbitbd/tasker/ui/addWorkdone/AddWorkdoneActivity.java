@@ -74,6 +74,7 @@ public class AddWorkdoneActivity extends PrebaseActivity implements AddWorkdoneC
     private void initView() {
         setupToolbar(R.id.toolbar);
         getSupportActionBar().setTitle("Add Workdone");
+        setupBannerAd(R.id.adView);
         btn_save = findViewById(R.id.save);
         btn_browse = findViewById(R.id.browse);
         etDate = findViewById(R.id.et_date);

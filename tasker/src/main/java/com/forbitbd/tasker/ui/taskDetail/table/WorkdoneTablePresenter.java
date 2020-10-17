@@ -1,6 +1,5 @@
 package com.forbitbd.tasker.ui.taskDetail.table;
 
-import android.util.Log;
 
 
 import com.forbitbd.androidutils.utils.MyUtil;
@@ -23,7 +22,6 @@ public class WorkdoneTablePresenter implements WorkDoneTableContract.Presenter {
 
     @Override
     public void processData(List<WorkDone> workDoneList) {
-        Log.d("SohelMAMA",workDoneList.size()+"");
 
         mvView.clearAdpter();
 
@@ -31,16 +29,6 @@ public class WorkdoneTablePresenter implements WorkDoneTableContract.Presenter {
             mvView.addItem(x);
         }
 
-        /*dailyWorkdoneList.clear();
-
-          Observable.fromIterable(workDoneList)
-                    .groupBy(r-> MyUtil.getStringDate(r.getDate()))
-                    .flatMapSingle(Observable::toList)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(group-> processGroup(group)
-                            ,err->err.printStackTrace()
-                    ,()->sortData());*/
     }
 
     private void processGroup(List<WorkDone> workDoneList){
@@ -52,24 +40,5 @@ public class WorkdoneTablePresenter implements WorkDoneTableContract.Presenter {
 
         dailyWorkdoneList.add(dailyWorkdone);
 
-       //
     }
-
-  /*  private void sortData(){
-        Collections.sort(dailyWorkdoneList, new Comparator<DailyWorkdone>() {
-            @Override
-            public int compare(DailyWorkdone dailyWorkdone, DailyWorkdone t1) {
-                try {
-                    return MyUtil.getDate(dailyWorkdone.getDate()).compareTo(MyUtil.getDate(t1.getDate()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    return 0;
-                }
-            }
-        });
-
-        for (DailyWorkdone dailyWorkdone :dailyWorkdoneList){
-            mvView.addItem(dailyWorkdone);
-        }
-    }*/
 }
