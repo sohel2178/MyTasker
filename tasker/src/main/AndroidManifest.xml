@@ -5,11 +5,21 @@
     <application
         android:networkSecurityConfig="@xml/network_config">
 
-        <activity android:name=".ui.TaskActivity"/>
-        <activity android:name=".ui.taskAdd.TaskAddActivity"/>
-        <activity android:name=".ui.taskEdit.TaskEditActivity"/>
-        <activity android:name=".ui.taskDetail.TaskDetailActivity"/>
-        <activity android:name=".ui.addWorkdone.AddWorkdoneActivity"/>
+        <activity android:name=".ui.TaskActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.taskAdd.TaskAddActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.taskEdit.TaskEditActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.taskDetail.TaskDetailActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.addWorkdone.AddWorkdoneActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.gantt.GanttActivity"
             android:configChanges="orientation"
             android:screenOrientation="landscape"/>
