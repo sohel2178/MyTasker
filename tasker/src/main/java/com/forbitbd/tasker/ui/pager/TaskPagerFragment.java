@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.forbitbd.androidutils.dialog.delete.DeleteDialog;
 import com.forbitbd.androidutils.dialog.delete.DialogClickListener;
 import com.forbitbd.androidutils.models.Project;
+import com.forbitbd.androidutils.models.SharedProject;
 import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.androidutils.utils.Constant;
 import com.forbitbd.tasker.R;
@@ -37,7 +38,7 @@ public class TaskPagerFragment extends Fragment implements TaskPagerContract.Vie
 
     private TaskPagerPresenter mPresenter;
 
-    private Project project;
+    private SharedProject sharedProject;
 
     private TaskActivity activity;
 
@@ -62,8 +63,8 @@ public class TaskPagerFragment extends Fragment implements TaskPagerContract.Vie
 
         if(getActivity() instanceof TaskActivity){
             activity = (TaskActivity) getActivity();
-            project = activity.getProject();
-            adapter = new TaskAdapter(this);
+            sharedProject = activity.getSharedProject();
+            adapter = new TaskAdapter(this,sharedProject.getActivity());
         }
 
 

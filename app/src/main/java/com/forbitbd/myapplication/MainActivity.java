@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.forbitbd.androidutils.models.Project;
+import com.forbitbd.androidutils.models.SharedProject;
 import com.forbitbd.androidutils.utils.Constant;
 import com.forbitbd.androidutils.utils.PrebaseActivity;
 import com.forbitbd.tasker.ui.TaskActivity;
@@ -66,8 +67,13 @@ public class MainActivity extends PrebaseActivity implements MainContract.View {
     @Override
     public void startTaskActivity(Project project) {
         Intent intent = new Intent(getApplicationContext(),TaskActivity.class);
+
+        SharedProject sharedProject = new SharedProject(project);
+        sharedProject.getActivity().setWrite(false);
+        sharedProject.getActivity().setUpdate(false);
+        sharedProject.getActivity().setDelete(true);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constant.PROJECT,project);
+        bundle.putSerializable(Constant.PROJECT,sharedProject);
         intent.putExtras(bundle);
         startActivity(intent);
     }

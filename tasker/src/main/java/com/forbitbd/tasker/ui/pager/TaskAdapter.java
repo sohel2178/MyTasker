@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.forbitbd.androidutils.models.SharedProject;
 import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.androidutils.utils.MyUtil;
 import com.forbitbd.tasker.R;
@@ -23,10 +24,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     private TaskPagerFragment fragment;
     private List<Task> taskList;
     private LayoutInflater inflater;
+    private SharedProject.Permission activityPermission;
 
 
-    public TaskAdapter(TaskPagerFragment fragment) {
+    public TaskAdapter(TaskPagerFragment fragment, SharedProject.Permission activityPermission) {
         this.fragment = fragment;
+        this.activityPermission = activityPermission;
         this.taskList = new ArrayList<>();
         this.inflater = LayoutInflater.from(fragment.getContext());
     }
@@ -130,6 +133,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             ivDelete.setOnClickListener(this);
             ivEdit.setOnClickListener(this);
             ivView.setOnClickListener(this);
+
+            // Project Permission Control
+
+            if(activityPermission.isUpdate()){
+                ivEdit.setVisibility(View.VISIBLE);
+            }else{
+                ivEdit.setVisibility(View.GONE);
+            }
+
+            if(activityPermission.isDelete()){
+                ivDelete.setVisibility(View.VISIBLE);
+            }else {
+                ivDelete.setVisibility(View.GONE);
+            }
 
         }
 

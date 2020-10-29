@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 
 import com.forbitbd.androidutils.models.Project;
+import com.forbitbd.androidutils.models.SharedProject;
 import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.androidutils.utils.Constant;
 import com.forbitbd.androidutils.utils.PrebaseActivity;
@@ -46,7 +47,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
 
     private List<Task> taskList;
 
-    private Project project;
+    private SharedProject sharedProject;
 
     private TreeSet<String> unitSet;
 
@@ -66,7 +67,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         setContentView(R.layout.activity_task);
         this.mPresenter = new TaskPresenter(this);
 
-        this.project = (Project) getIntent().getSerializableExtra(Constant.PROJECT);
+        this.sharedProject = (SharedProject) getIntent().getSerializableExtra(Constant.PROJECT);
 
         initView();
     }
@@ -75,7 +76,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         setupToolbar(R.id.toolbar);
         setupBannerAd(R.id.adView);
 
-        getSupportActionBar().setTitle(project.getName());
+        getSupportActionBar().setTitle(sharedProject.getProject().getName());
 
 
         fabAdd = findViewById(R.id.fab_add);
@@ -91,8 +92,8 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         tvFinancialProgress = findViewById(R.id.financial_progress);
         tvTaskCount = findViewById(R.id.task_count);
 
-        tvProjectLocation.setText(project.getLocation());
-        tvProjectDescription.setText(project.getDescription());
+        tvProjectLocation.setText(sharedProject.getProject().getLocation());
+        tvProjectDescription.setText(sharedProject.getProject().getDescription());
 
         fabAdd.setOnClickListener(this);
         fabGantt.setOnClickListener(this);
@@ -100,13 +101,19 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         fabDownload.setOnClickListener(this);
         mFoldingCell.setOnClickListener(this);
 
-        mPresenter.getProjectTask(project.get_id());
+        mPresenter.getProjectTask(sharedProject.getProject().get_id());
+
+        // Permission Base Visibility
+        if(!sharedProject.getActivity().isWrite()){
+            fabAdd.setVisibility(View.GONE);
+            fabWorkdone.setVisibility(View.GONE);
+        }
 
 
     }
 
-    public Project getProject(){
-        return this.project;
+    public SharedProject getSharedProject(){
+        return this.sharedProject;
     }
 
     @Override
@@ -204,7 +211,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         unitList.addAll(unitSet);
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constant.PROJECT,project);
+        bundle.putSerializable(Constant.PROJECT,sharedProject.getProject());
         bundle.putStringArrayList(Constant.UNITS,unitList);
 
         intent.putExtras(bundle);
@@ -220,7 +227,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         unitList.addAll(unitSet);
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constant.PROJECT,project);
+        bundle.putSerializable(Constant.PROJECT,sharedProject.getProject());
         bundle.putSerializable(Constant.TASK,task);
         bundle.putStringArrayList(Constant.UNITS,unitList);
 
@@ -247,7 +254,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         Intent intent = new Intent(getApplicationContext(), AddWorkdoneActivity.class);
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constant.PROJECT,project);
+        bundle.putSerializable(Constant.PROJECT,sharedProject.getProject());
         bundle.putSerializable(Constant.TASK_LIST, (Serializable) taskList);
         intent.putExtras(bundle);
 
@@ -260,7 +267,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         Intent intent = new Intent(this, GanttActivity.class);
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constant.PROJECT,project);
+        bundle.putSerializable(Constant.PROJECT,sharedProject.getProject());
         bundle.putSerializable(Constant.TASK_LIST, (Serializable) taskList);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -268,7 +275,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
 
     @Override
     public String saveFile(ResponseBody responseBody) {
-        return saveTaskFile("Construction Manager",project.getName(),"Tasks","task.xlsx",responseBody);
+        return saveTaskFile("Construction Manager",sharedProject.getProject().getName(),"Tasks","task.xlsx",responseBody);
     }
 
     @Override
@@ -294,6 +301,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
         if(requestCode==ADD_TASK && resultCode == RESULT_OK){
             Task task = (Task) data.getSerializableExtra(Constant.TASK);
             unitSet.add(task.getUnit());
@@ -339,7 +347,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(getApplicationContext(), perms)) {
             //sendDownloadRequest();
-            mPresenter.downloadTaskFile(project.get_id());
+            mPresenter.downloadTaskFile(sharedProject.getProject().get_id());
         } else {
             // Do not have permissions, request them now
             EasyPermissions.requestPermissions(this, "App need to Permission for Read and Write",
