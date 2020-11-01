@@ -12,6 +12,7 @@ import com.forbitbd.androidutils.utils.ViewPagerAdapter;
 import com.forbitbd.tasker.R;
 import com.forbitbd.tasker.models.WorkDone;
 import com.forbitbd.tasker.ui.taskDetail.chart.WorkDoneChartFragment;
+import com.forbitbd.tasker.ui.taskDetail.material.MaterialFragment;
 import com.forbitbd.tasker.ui.taskDetail.progress.ProgressFragment;
 import com.forbitbd.tasker.ui.taskDetail.table.WorkDoneTableFragment;
 import com.google.android.material.tabs.TabLayout;
@@ -63,6 +64,7 @@ public class TaskDetailActivity extends PrebaseActivity implements TaskDetailCon
         adapter.addFragment(new WorkDoneTableFragment(), "TABLE");
         adapter.addFragment(new WorkDoneChartFragment(), "CHART");
         adapter.addFragment(new ProgressFragment(), "PROGRESS");
+        adapter.addFragment(new MaterialFragment(),"MATERIAL");
         //adapter.addFragment(new TaskGalleryFragment(), "GALLERY");
         viewPager.setAdapter(adapter);
     }

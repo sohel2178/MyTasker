@@ -40,4 +40,12 @@ public class BaseDetailFragment extends Fragment {
     public Task getTask(){
         return activity.getTask();
     }
+
+    public void showProgressDialog(){
+        activity.showProgressDialog();
+    }
+
+    public void hideProgressDialog(){
+        activity.hideProgressDialog();
+    }
 }

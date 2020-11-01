@@ -2,6 +2,7 @@ package com.forbitbd.tasker.api;
 
 import com.forbitbd.androidutils.models.Project;
 import com.forbitbd.androidutils.models.Task;
+import com.forbitbd.tasker.models.Material;
 import com.forbitbd.tasker.models.WorkDone;
 
 import java.util.List;
@@ -25,6 +26,9 @@ public interface ApiClient {
 
     @GET("/civil/api/projects/{project_id}/tasks")
     Call<List<Task>> getProjectTasks(@Path("project_id") String project_id);
+
+    @GET("/civil/api/projects/{project_id}/tasks/{task_id}/materials")
+    Call<List<Material>> getMaterialList(@Path("project_id") String project_id,@Path("task_id") String taskId);
 
     @POST("/civil/api/projects/{project_id}/tasks")
     Call<Task> saveTask(@Path("project_id") String project_id,@Body Task task);
