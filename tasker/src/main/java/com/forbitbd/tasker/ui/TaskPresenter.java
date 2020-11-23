@@ -1,6 +1,8 @@
 package com.forbitbd.tasker.ui;
 
 
+import android.util.Log;
+
 import com.forbitbd.androidutils.api.ServiceGenerator;
 import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.tasker.api.ApiClient;
@@ -44,8 +46,36 @@ public class TaskPresenter implements TaskContract.Presenter {
     }
 
     @Override
+    public void uploadBulk(String projectId, List<Task> taskList) {
+        mView.showProgressDialog();
+
+        ApiClient client = ServiceGenerator.createService(ApiClient.class);
+        client.bulkTaskEntry(projectId,taskList)
+                .enqueue(new Callback<List<Task>>() {
+                    @Override
+                    public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
+                        mView.hideProgressDialog();
+
+                        if(response.isSuccessful()){
+                            mView.renderList(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Task>> call, Throwable t) {
+                        mView.hideProgressDialog();
+                    }
+                });
+    }
+
+    @Override
     public void initializeViewPager() {
         mView.initializePager();
+    }
+
+    @Override
+    public void showInstructionDialog() {
+        mView.showInstructionDialog();
     }
 
     @Override
@@ -137,6 +167,57 @@ public class TaskPresenter implements TaskContract.Presenter {
             }
         });
 
+    }
+
+    @Override
+    public void validateTaskList(List<Task> taskList) {
+        List<Task> tasks = new ArrayList<>();
+
+        for (Task x:taskList){
+            if(validate(x)){
+                tasks.add(x);
+            }
+        }
+
+        Log.d("HHHHH",tasks.size()+" Found");
+
+        mView.showInfoDialog(tasks);
+
+    }
+
+    @Override
+    public boolean validate(Task task) {
+
+
+        if(task.getName().equals("")){
+            return false;
+        }
+
+        if(task.getVolume_of_works()<=0){
+            return false;
+        }
+
+        if(task.getUnit_rate()<=0){
+            return false;
+        }
+
+        if(task.getUnit().equals("")){
+            return false;
+        }
+
+        if(task.getStart_date()==null){
+            return false;
+        }
+
+        if(task.getFinished_date()==null){
+            return false;
+        }
+
+        if(task.getStart_date().compareTo(task.getFinished_date())>0){
+            return false;
+        }
+
+        return true;
     }
 
 

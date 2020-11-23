@@ -3,6 +3,10 @@ package com.forbitbd.tasker.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,7 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 
-import com.forbitbd.androidutils.models.Project;
+import com.forbitbd.androidutils.dialog.delete.DeleteDialog;
+import com.forbitbd.androidutils.dialog.delete.DialogClickListener;
 import com.forbitbd.androidutils.models.SharedProject;
 import com.forbitbd.androidutils.models.Task;
 import com.forbitbd.androidutils.utils.Constant;
@@ -19,17 +24,26 @@ import com.forbitbd.androidutils.utils.PrebaseActivity;
 import com.forbitbd.androidutils.utils.ViewPagerAdapter;
 import com.forbitbd.tasker.R;
 import com.forbitbd.tasker.ui.addWorkdone.AddWorkdoneActivity;
+import com.forbitbd.tasker.ui.bulkEntryHelp.BulkEntryHelpDialog;
 import com.forbitbd.tasker.ui.gantt.GanttActivity;
 import com.forbitbd.tasker.ui.pager.TaskPagerFragment;
 import com.forbitbd.tasker.ui.taskAdd.TaskAddActivity;
 import com.forbitbd.tasker.ui.taskEdit.TaskEditActivity;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.obsez.android.lib.filechooser.ChooserDialog;
+import com.opencsv.CSVReader;
 import com.ramotion.foldingcell.FoldingCell;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -42,6 +56,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
     private static final int EDIT_TASK=8000;
     private static final int ADD_WORKDONE=9000;
     private static final int READ_WRITE_PERMISSION=12000;
+    private static final int READ_WRITE =7500;
 
     private TaskPresenter mPresenter;
 
@@ -57,7 +72,9 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
     private ViewPagerAdapter adapter;
     private ViewPager viewPager;
 
-    private FloatingActionButton fabAdd,fabGantt,fabWorkdone,fabDownload;
+    private FloatingActionButton fabAdd,fabGantt,fabWorkdone;
+
+    private MenuItem menuUpload,menuInstruction;
 
 
 
@@ -79,10 +96,10 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         getSupportActionBar().setTitle(sharedProject.getProject().getName());
 
 
+
         fabAdd = findViewById(R.id.fab_add);
         fabGantt = findViewById(R.id.fab_gantt_chart);
         fabWorkdone = findViewById(R.id.fab_add_workdone);
-        fabDownload = findViewById(R.id.fab_download);
 
         mFoldingCell = findViewById(R.id.folding_cell);
 
@@ -98,7 +115,6 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         fabAdd.setOnClickListener(this);
         fabGantt.setOnClickListener(this);
         fabWorkdone.setOnClickListener(this);
-        fabDownload.setOnClickListener(this);
         mFoldingCell.setOnClickListener(this);
 
         mPresenter.getProjectTask(sharedProject.getProject().get_id());
@@ -125,12 +141,20 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
             mFoldingCell.toggle(false);
         }else if(view==fabWorkdone){
             mPresenter.startAddWorkdoneActivity();
-        }else if(view==fabDownload){
-            requestFileAfterPermission();
         }else if(view==fabGantt){
             mPresenter.startGanttChartActivity();
         }
 
+    }
+
+    private void controlVisibility(){
+        if(taskList.size()==0 && sharedProject.getActivity().isWrite()){
+            menuUpload.setVisible(true);
+            menuInstruction.setVisible(true);
+        }else {
+            menuUpload.setVisible(false);
+            menuInstruction.setVisible(false);
+        }
     }
 
     @Override
@@ -138,6 +162,29 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         this.taskList = taskList;
         initialiazeUnitSet();
         mPresenter.initializeViewPager();
+
+        controlVisibility();
+
+    }
+
+    @Override
+    public void showInfoDialog(List<Task> taskList) {
+        DeleteDialog deleteDialog = new DeleteDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constant.CONTENT,taskList.size()+" valid Task Found. Would you want to add them??");
+        bundle.putString(Constant.TITLE,"Bulk Entry From CSV");
+        deleteDialog.setCancelable(false);
+        deleteDialog.setArguments(bundle);
+        deleteDialog.setListener(new DialogClickListener() {
+            @Override
+            public void positiveButtonClick() {
+                Log.d("Task",taskList.size()+"");
+                deleteDialog.dismiss();
+                mPresenter.uploadBulk(sharedProject.getProject().get_id(),taskList);
+            }
+        });
+
+        deleteDialog.show(getSupportFragmentManager(),"DELETE");
     }
 
     @Override
@@ -156,6 +203,33 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         for (Task x:taskList){
             unitSet.add(x.getUnit());
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.task_menu, menu);
+        menuUpload = menu.findItem(R.id.action_upload);
+        menuInstruction = menu.findItem(R.id.action_instruction);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+//        return super.onOptionsItemSelected(item);
+
+       if(item.getItemId()==R.id.action_upload){
+           getReadWritePermission();
+           return true;
+       }else if(item.getItemId()==R.id.action_download){
+           requestFileAfterPermission();
+           return true;
+       }else if(item.getItemId()==R.id.action_instruction){
+           mPresenter.showInstructionDialog();
+           return true;
+       }
+       else{
+           return super.onOptionsItemSelected(item);
+       }
     }
 
     @Override
@@ -245,6 +319,7 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
             mPresenter.updateProgress(taskList);
             mPresenter.filterTask(taskList,viewPager.getCurrentItem());
         }
+        controlVisibility();
     }
 
 
@@ -271,6 +346,13 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         bundle.putSerializable(Constant.TASK_LIST, (Serializable) taskList);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void showInstructionDialog() {
+        BulkEntryHelpDialog bulkEntryHelpDialog = new BulkEntryHelpDialog();
+        bulkEntryHelpDialog.setCancelable(false);
+        bulkEntryHelpDialog.show(getSupportFragmentManager(),"SHOW");
     }
 
     @Override
@@ -311,6 +393,8 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
 
             mPresenter.updateProgress(taskList);
             mPresenter.filterTask(taskList,viewPager.getCurrentItem());
+
+            controlVisibility();
         }
 
         if(requestCode==EDIT_TASK && resultCode == RESULT_OK){
@@ -375,6 +459,91 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
 
     public List<Task> getTaskList(){
         return this.taskList;
+    }
+
+
+    @AfterPermissionGranted(READ_WRITE)
+    private void getReadWritePermission() {
+        String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            openFileDialog();
+
+        } else {
+            // Do not have permissions, request them now
+            EasyPermissions.requestPermissions(this, "Need READ and Write Permission",
+                    READ_WRITE, perms);
+        }
+    }
+
+
+    private void openFileDialog(){
+        new ChooserDialog(this)
+                .withFilter(false,false,"csv")
+                .withStartFile(Environment.getExternalStorageDirectory().getAbsolutePath())
+                .withDateFormat("HH:mm")
+                .withChosenListener(new ChooserDialog.Result() {
+                    @Override
+                    public void onChoosePath(String dir, File dirFile) {
+//                        Toast.makeText(FileChooserActivity.this, "FOLDER: " + dir, Toast.LENGTH_SHORT).show();
+
+                        try {
+                            CSVReader reader = new CSVReader(new FileReader(dir));
+                            String [] nextLine;
+                            List<Task> taskList = new ArrayList<>();
+                            while ((nextLine = reader.readNext()) != null) {
+                                // nextLine[] is an array of values from the line
+                                System.out.println(nextLine[0] + nextLine[1] + "etc...");
+
+                               Task task = new Task();
+                               task.setName(nextLine[0].trim());
+                               task.setVolume_of_works(Double.parseDouble(nextLine[1].trim()));
+                               task.setUnit_rate(Double.parseDouble(nextLine[2].trim()));
+                               task.setUnit(nextLine[3].trim());
+                               task.setStart_date(getDate(nextLine[4]));
+                               task.setFinished_date(getDate(nextLine[5]));
+                               task.setProject(sharedProject.getProject().get_id());
+
+                               taskList.add(task);
+
+                            }
+
+                            mPresenter.validateTaskList(taskList);
+
+                            //Log.d("HHHHHH",taskList.size()+"");
+
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .build()
+                .show();
+
+       /* Log.d("YYYYYYY",Environment.getExternalStorageDirectory().getAbsolutePath()+" Dir");
+        //Log.d("YYYYYYY",Environment.getExternalStoragePublicDirectory(null).getAbsolutePath()+" Dir");*/
+    }
+
+    private Date getDate(String date){
+        String[] hhh = date.split("/");
+
+        if(hhh.length!=3){
+            hhh = date.split("-");
+        }
+
+        try {
+            int year = Integer.parseInt(hhh[2].trim());
+            int month = Integer.parseInt(hhh[1].trim())-1;
+            int day = Integer.parseInt(hhh[0].trim());
+            return new GregorianCalendar(year, month, day).getTime();
+        }catch (Exception e){
+            Log.d("YYYYYY",e.getMessage()+"");
+            return null;
+        }
+
+
+//        Log.d("YYYYYYY",year+","+month+","+day);
     }
 
 }

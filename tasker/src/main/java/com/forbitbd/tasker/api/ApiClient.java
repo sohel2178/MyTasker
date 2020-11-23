@@ -33,6 +33,9 @@ public interface ApiClient {
     @POST("/civil/api/projects/{project_id}/tasks")
     Call<Task> saveTask(@Path("project_id") String project_id,@Body Task task);
 
+    @POST("/civil/api/projects/{project_id}/tasks/bulk")
+    Call<List<Task>> bulkTaskEntry(@Path("project_id") String project_id,@Body List<Task> taskList);
+
     @PUT("/civil/api/projects/{project_id}/tasks/{task_id}")
     Call<Task> updateTask(
             @Path("project_id") String project_id,

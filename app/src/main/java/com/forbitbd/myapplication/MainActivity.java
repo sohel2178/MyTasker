@@ -63,8 +63,8 @@ public class MainActivity extends PrebaseActivity implements MainContract.View {
     public void startTaskActivity(Project project) {
         Intent intent = new Intent(getApplicationContext(),TaskActivity.class);
         SharedProject sharedProject = new SharedProject(project);
-        sharedProject.getActivity().setWrite(false);
-        sharedProject.getActivity().setUpdate(false);
+        sharedProject.getActivity().setWrite(true);
+        sharedProject.getActivity().setUpdate(true);
         sharedProject.getActivity().setDelete(true);
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constant.PROJECT,sharedProject);

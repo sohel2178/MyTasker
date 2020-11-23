@@ -35,11 +35,15 @@
         ​
     </com.google.android.material.appbar.AppBarLayout>
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/appbar"
-        android:layout_above="@+id/adView">
+        android:layout_above="@+id/adView"
+        android:id="@+id/dataView"
+        >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/overview"
@@ -262,17 +266,6 @@
             fab:menu_fab_show_animation="@anim/show_from_bottom"
             fab:menu_fab_hide_animation="@anim/hide_to_bottom">
 
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fab_download"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/stat_sys_download"
-                fab:fab_colorNormal="@color/colorAccent"
-                fab:fab_colorPressed="@color/colorPrimaryDark"
-                fab:fab_colorRipple="@color/light_grey"
-                fab:fab_size="mini"
-                fab:fab_label="@string/download" />
 
 
             <com.github.clans.fab.FloatingActionButton

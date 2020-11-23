@@ -32,4 +32,10 @@
     <string name="select_start_date">Select Finished Date</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="load_task_from_csv">Load Task From CVS File</string>
+
+    <string name="instruction_1"><b>Prepare a csv file </b> with column <b>name,volume of works,unit rate,unit,start date and finished date</b> sequentially without header like below..
+    </string>
+    <string name="instruction_2">In case of <b>start date and finished date</b> the date format should be <b>day/month/year</b> or <b>day-month-year</b>
+    </string>
 </resources>
