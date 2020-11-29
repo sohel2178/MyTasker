@@ -11,6 +11,7 @@ import com.forbitbd.androidutils.dialog.DatePickerListener;
 import com.forbitbd.androidutils.dialog.MyDatePickerFragment;
 import com.forbitbd.androidutils.models.Project;
 import com.forbitbd.androidutils.models.Task;
+import com.forbitbd.androidutils.utils.AppPreference;
 import com.forbitbd.androidutils.utils.Constant;
 import com.forbitbd.androidutils.utils.MyUtil;
 import com.forbitbd.androidutils.utils.PrebaseActivity;
@@ -106,6 +107,14 @@ public class TaskEditActivity extends PrebaseActivity implements TaskEditContrac
             mPresenter.openFinishedDateCalender();
         }else if(view==btnAdd){
             mPresenter.checkAndSave();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(AppPreference.getInstance(this).getCounter()>Constant.COUNTER){
+            showInterAd();
         }
     }
 

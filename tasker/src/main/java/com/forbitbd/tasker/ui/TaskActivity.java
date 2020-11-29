@@ -19,6 +19,7 @@ import com.forbitbd.androidutils.dialog.delete.DeleteDialog;
 import com.forbitbd.androidutils.dialog.delete.DialogClickListener;
 import com.forbitbd.androidutils.models.SharedProject;
 import com.forbitbd.androidutils.models.Task;
+import com.forbitbd.androidutils.utils.AppPreference;
 import com.forbitbd.androidutils.utils.Constant;
 import com.forbitbd.androidutils.utils.PrebaseActivity;
 import com.forbitbd.androidutils.utils.ViewPagerAdapter;
@@ -133,22 +134,33 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(AppPreference.getInstance(this).getCounter()>Constant.COUNTER){
+            showInterAd();
+        }
+    }
+
+    @Override
     public void onClick(View view) {
 
         if(view==fabAdd){
+            AppPreference.getInstance(this).increaseCounter();
             mPresenter.startAddTaskActivity();
         }else if(view==mFoldingCell){
             mFoldingCell.toggle(false);
         }else if(view==fabWorkdone){
+            AppPreference.getInstance(this).increaseCounter();
             mPresenter.startAddWorkdoneActivity();
         }else if(view==fabGantt){
+            AppPreference.getInstance(this).increaseCounter();
             mPresenter.startGanttChartActivity();
         }
 
     }
 
     private void controlVisibility(){
-        if(taskList.size()==0 && sharedProject.getActivity().isWrite()){
+        if(sharedProject.getActivity().isWrite()){
             menuUpload.setVisible(true);
             menuInstruction.setVisible(true);
         }else {

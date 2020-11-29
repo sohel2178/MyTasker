@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.forbitbd.androidutils.models.SharedProject;
 import com.forbitbd.androidutils.models.Task;
+import com.forbitbd.androidutils.utils.AppPreference;
 import com.forbitbd.androidutils.utils.MyUtil;
 import com.forbitbd.tasker.R;
 import com.google.android.material.button.MaterialButton;
@@ -195,6 +196,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
         @Override
         public void onClick(View view) {
+
+            if(view!=mFoldingCell){
+                AppPreference.getInstance(view.getContext()).increaseCounter();
+            }
 
             if(view==mFoldingCell){
                 mFoldingCell.toggle(false);
