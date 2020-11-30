@@ -2,6 +2,7 @@ package com.forbitbd.tasker.ui;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -30,6 +31,8 @@ import com.forbitbd.tasker.ui.gantt.GanttActivity;
 import com.forbitbd.tasker.ui.pager.TaskPagerFragment;
 import com.forbitbd.tasker.ui.taskAdd.TaskAddActivity;
 import com.forbitbd.tasker.ui.taskEdit.TaskEditActivity;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.obsez.android.lib.filechooser.ChooserDialog;
@@ -176,6 +179,10 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
         mPresenter.initializeViewPager();
 
         controlVisibility();
+
+        if(taskList.size()==0){
+            mPresenter.showTapTargetView();
+        }
 
     }
 
@@ -368,6 +375,26 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
     }
 
     @Override
+    public void showTapTargetView() {
+
+        TapTargetView.showFor(this,
+                TapTarget.forView(findViewById(R.id.fab_add),"Create New Task","To Create a new Task Click the Blinking Button...")
+                        .outerCircleColor(R.color.statusColor)
+                        .outerCircleAlpha(0.96f)
+                        .targetCircleColor(R.color.colorAccent)
+                        .tintTarget(false)
+                        .textTypeface(Typeface.MONOSPACE)
+                ,new TapTargetView.Listener(){
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+                        startAddTaskActivity();
+                    }
+                });
+
+    }
+
+    @Override
     public String saveFile(ResponseBody responseBody) {
         return saveTaskFile("Construction Manager",sharedProject.getProject().getName(),"Tasks","task.xlsx",responseBody);
     }
@@ -554,8 +581,6 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
             return null;
         }
 
-
-//        Log.d("YYYYYYY",year+","+month+","+day);
     }
 
 }

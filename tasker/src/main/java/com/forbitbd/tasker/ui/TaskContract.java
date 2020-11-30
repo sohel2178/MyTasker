@@ -15,6 +15,7 @@ public interface TaskContract {
         void uploadBulk(String projectId,List<Task> taskList);
         boolean validate(Task task);
         void initializeViewPager();
+        void showTapTargetView();
         void showInstructionDialog();
         void startAddTaskActivity();
         void startAddWorkdoneActivity();
@@ -43,6 +44,7 @@ public interface TaskContract {
         void showProgressDialog();
         void hideProgressDialog();
         void showInstructionDialog();
+        void showTapTargetView();
 
         String saveFile(ResponseBody responseBody);
         void openFile(String path);

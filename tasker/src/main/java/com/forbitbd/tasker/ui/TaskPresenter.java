@@ -74,6 +74,11 @@ public class TaskPresenter implements TaskContract.Presenter {
     }
 
     @Override
+    public void showTapTargetView() {
+        mView.showTapTargetView();
+    }
+
+    @Override
     public void showInstructionDialog() {
         mView.showInstructionDialog();
     }
