@@ -560,8 +560,6 @@ public class TaskActivity extends PrebaseActivity implements TaskContract.View ,
                 .build()
                 .show();
 
-       /* Log.d("YYYYYYY",Environment.getExternalStorageDirectory().getAbsolutePath()+" Dir");
-        //Log.d("YYYYYYY",Environment.getExternalStoragePublicDirectory(null).getAbsolutePath()+" Dir");*/
     }
 
     private Date getDate(String date){
